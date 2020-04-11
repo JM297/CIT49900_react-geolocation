@@ -1,26 +1,66 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+export default function App() {
+
+    const [position, setPosition] = React.useState({});
+    const [goal, setGoal] = React.useState("");
+    const [error, setError] = React.useState(null);
+    const [color, setColor] = React.useState("red");
+    const [destination, setDestination] = React.useState({
+        x:41.500672,
+        y:-88.080384
+    });
+    const hitbox = {
+        height:100,
+        width:100,
+        backgroundColor:color
+    };
+
+    const onChange = ({coords}) => {
+        setPosition({
+            x:coords.latitude,
+            y:coords.longitude
+        });
+        console.log(coords);
+    };
+
+    const onError = ((error) => {
+       setError(error.message)
+    });
+
+    React.useEffect(() => {
+        const geo = navigator.geolocation;
+        if(!geo){
+            setError("Hey, this isn't working!");
+            return;
+        }
+        if(position.x === destination.x && position.y === destination.y){
+            setColor("green");
+            setGoal("You have arrived");
+        } else{
+            setColor("red");
+            setGoal("Not close");
+        }
+        let watcher = geo.watchPosition(onChange,onError);
+        return () => geo.clearWatch(watcher);
+    },[destination,position]);
+    console.log(destination.x);
+    console.log(position.x);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <p>
+            Latitude: {position.x}&#176;
+          </p>
+          <p>
+              Longitude: {position.y}&#176;
+          </p>
+          <p>{goal}</p>
+          <p>{error}</p>
+          <div style={hitbox}/>
       </header>
     </div>
   );
 }
-
-export default App;
