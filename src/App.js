@@ -8,8 +8,8 @@ export default function App() {
     const [error, setError] = React.useState(null);
     const [color, setColor] = React.useState("red");
     const [destination, setDestination] = React.useState({
-        x:39.7351345,
-        y:-86.1986618
+        x:39.768996942,
+        y:-86.17166598
     });
     const hitbox = {
         height:100,
