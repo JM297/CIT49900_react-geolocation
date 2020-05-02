@@ -8,10 +8,10 @@ export default function App() {
     const [error, setError] = React.useState(null);
     const [color, setColor] = React.useState("red");
     const [destination, setDestination] = React.useState({
-        x1:39.734412,
+        x1:39.7350650,
         y1:-86.198831,
         x2:39.734319,
-        y2:-86.198729
+        y2:-86.198420
     });
     const hitbox = {
         height:100,
@@ -37,18 +37,17 @@ export default function App() {
             setError("Hey, this isn't working!");
             return;
         }
-        if(position.x >= destination.x2 && position.x <= destination.x1){
-            if(position.y >= destination.y1 && position.y <= destination.y2){
+        if(position.x >= destination.x2 && position.x <= destination.x1 && position.y >= destination.y1 && position.y <= destination.y2){
                 setColor("green");
                 setGoal("You have arrived");
-            }
         } else{
             setColor("red");
             setGoal("Not close");
         }
-        let watcher = geo.watchPosition(onChange,onError);
+        let watcher = geo.watchPosition(onChange,onError, {enableHighAccuracy: true});
         return () => geo.clearWatch(watcher);
     },[destination,position]);
+    console.log(navigator.geolocation.getCurrentPosition(onChange,onError,{enableHighAccuracy: true}))
     console.log(destination.x1, typeof(destination.x1));
     console.log(destination.x2);
     console.log(destination.y1);
