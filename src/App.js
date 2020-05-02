@@ -49,11 +49,11 @@ export default function App() {
         let watcher = geo.watchPosition(onChange,onError);
         return () => geo.clearWatch(watcher);
     },[destination,position]);
-    console.log(destination.x1, typeof(destination.x1);
+    console.log(destination.x1, typeof(destination.x1));
     console.log(destination.x2);
     console.log(destination.y1);
     console.log(destination.y2);
-    console.log(position.x, position.y, typeof(position.x);
+    console.log(position.x, position.y, typeof(position.x));
     console.log(position.x >= destination.x2 && position.x <= destination.x1);
     console.log(position.y >= destination.y1 && position.y <= destination.y2);
 
