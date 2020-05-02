@@ -38,7 +38,7 @@ export default function App() {
             return;
         }
         if(position.x >= destination.x2 && position.x <= destination.x1){
-            if(position.y >= destination.y2 && position.y <= destination.y1){
+            if(position.y >= destination.y1 && position.y <= destination.y2){
                 setColor("green");
                 setGoal("You have arrived");
             }
